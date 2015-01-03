@@ -1,0 +1,71 @@
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<header>
+    <div id="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="home-account btn-group inline-block ">
+                        <a href=<c:url value="/"/>>Home</a>
+                        <c:if test='${user == null}'>
+                            <a href="login.do">Login</a>
+                            <a href="createAccount.do">Create account</a>
+                        </c:if>
+                        <c:if test='${user != null}'>
+                            <a href="account.net">My account</a>
+                            <a href="logout.net">Logout</a>
+                        </c:if>
+                        <m:language/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="cart-info">
+                        <m:cart/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="logo">
+                        <a href=""><img src="images/logo.png"></a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="main-menu">
+                        <ul>
+                            <li><a href=<c:url value="/"/> > fmt = <fmt:message key="header.home"/></a></li>
+                            <li><a href="about-us.html">About</a></li>
+                            <li><a href="products">Products</a></li>
+                            <li><a href="contact-us.html">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <c:if test="${user != null}">
+                    <div class="col-md-3">
+                        <div class="text-row">
+                            <p><b>Login:</b> ${user.login}</p>
+                        </div>
+                        <div class="text-row">
+                            <p><b>Email:</b> ${user.email}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div>
+                            <div id="info_user">
+                                <img src='photo/${user.id}.jpg' alt=""/>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</header>

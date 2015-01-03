@@ -1,0 +1,16 @@
+<script>
+    $(document).ready(function() {
+        $("#example_1").ionRangeSlider({
+            min: ${min},
+            max: ${max},
+            from: ${from == null ? min:from},
+            to: ${to== null ? max:to},
+            type: 'double',
+            prefix: "$",
+            step: 1,
+            prettify: false,
+            hasGrid: true,
+            gridMargin: 7
+        });
+    });
+</script>

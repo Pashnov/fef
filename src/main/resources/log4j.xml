@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Encoding" value="cp1251"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601}[%30.30c{-4}] - %m%n"/>
+        </layout>
+    </appender>
+
+
+    <appender name="application" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="log/fef.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM'.log'"/>
+        <param name="Threshold" value="INFO"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-10.10t][%38.38c{-4}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <root>
+        <level value="TRACE"/>
+        <appender-ref ref="application"/>
+        <appender-ref ref="ConsoleAppender"/>
+    </root>
+
+</log4j:configuration>
