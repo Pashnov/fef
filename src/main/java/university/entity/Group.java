@@ -10,9 +10,17 @@ public class Group {
 
     private long id;
     private String name;
-    private boolean isActive;
+    private boolean isActive = true;
     private Date creationDate;
     private List<User> users;
+
+    public Group() {
+    }
+
+    public Group(String name, List<User> users) {
+        this.name = name;
+        this.users = users;
+    }
 
     public long getId() {
         return id;

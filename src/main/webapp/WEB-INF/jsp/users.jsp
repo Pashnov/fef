@@ -19,7 +19,7 @@
         <th>last name</th>
         <th>email</th>
         <th>role</th>
-        <th>course</th>
+        <th>yearOfStudy</th>
     </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
                 <td>${user.lastName}</td>
                 <td>${user.email}</td>
                 <td>${user.role}</td>
-                <td>${user.course}</td>
+                <td>${user.yearOfStudy}</td>
             </tr>
         </c:forEach>
     </tbody>

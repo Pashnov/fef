@@ -80,14 +80,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(50) NOT NULL,
   `role` enum('STUDENT','LECTURER','ADMIN') NOT NULL,
   `isActive` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `course` enum('I','II','III','IV','V','VI') DEFAULT NULL,
+  `yearOfStudy` enum('I','II','III','IV','V','VI') DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы fef.user: ~3 rows (приблизительно)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `role`, `isActive`, `course`) VALUES
+INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `role`, `isActive`, `yearOfStudy`) VALUES
 	(1, 'Andrii', 'Pashnov', 'pashnyov@gmail.com', 'zzzzzz', 'STUDENT', 1, 'VI'),
 	(2, 'first1', 'last1', 'email1', 'zzzzzz', 'LECTURER', 1, NULL),
 	(3, 'sfirst1', 'slast1', 'semail1', 'zzzzzz', 'STUDENT', 1, 'I');

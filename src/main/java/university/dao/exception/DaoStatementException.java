@@ -1,4 +1,4 @@
-package university.dao.entity;
+package university.dao.exception;
 
 /**
  * Created by Andrii_Pashnov on 23.12.2014 19:42.

@@ -12,5 +12,7 @@ public interface UserService {
     User read(long id);
     User read(String firstName, String lastName);
     List<User> findAll();
+    User create(User user);
+    List<User> findFreeStudent();
 
 }

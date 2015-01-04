@@ -3,7 +3,7 @@ package university.dao.impl;
 
 import org.apache.log4j.Logger;
 import university.dao.MaterialDao;
-import university.dao.entity.DaoStatementException;
+import university.dao.exception.DaoStatementException;
 import university.entity.Material;
 import university.transaction.JdbcConnectionHolder;
 

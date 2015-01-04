@@ -13,4 +13,6 @@ public interface UserDao {
     User read(String firstName, String lastName);
     List<User> findAll();
     List<User> findUsersByIdGroup(long idGroup);
+    List<User> findFreeStudent();
+    User create(User user);
 }

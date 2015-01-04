@@ -2,7 +2,7 @@ package university.dao.impl;
 
 import org.apache.log4j.Logger;
 import university.dao.GroupDao;
-import university.dao.entity.DaoStatementException;
+import university.dao.exception.DaoStatementException;
 import university.entity.Group;
 import university.entity.User;
 import university.transaction.JdbcConnectionHolder;
@@ -34,7 +34,7 @@ public class GroupDaoImpl implements GroupDao {
         Connection connection = JdbcConnectionHolder.get();
         try(PreparedStatement ps = connection.prepareStatement(SQL_CREATE_GROUP, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1,group.getName());
-            ps.setBoolean(1, group.isActive());
+            ps.setBoolean(2, group.isActive());
             if(ps.executeUpdate() > 0){
                 resultSet = ps.getGeneratedKeys();
                 if(resultSet.next()){
@@ -71,8 +71,8 @@ public class GroupDaoImpl implements GroupDao {
         ResultSet resultSet;
         Connection connection = JdbcConnectionHolder.get();
         try(PreparedStatement ps = connection.prepareStatement(SQL_READ_GROUP_BY_ID)) {
-//            ps.setLong(1,id);
-            ps.setLong(1, id);
+            int k = 1;
+            ps.setLong(k, id);
             resultSet = ps.executeQuery();
             if(resultSet.next()){
                 return extractGroupFromResultSet(resultSet);

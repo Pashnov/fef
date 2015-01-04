@@ -50,4 +50,24 @@ public class UserServiceImpl implements UserService {
             }
         });
     }
+
+    @Override
+    public User create(final User user) {
+        return manager.doTransaction(new ITransactionOperation<User>() {
+            @Override
+            public User execute() {
+                return userDao.create(user);
+            }
+        });
+    }
+
+    @Override
+    public List<User> findFreeStudent() {
+        return manager.doTransaction(new ITransactionOperation<List<User>>() {
+            @Override
+            public List<User> execute() {
+                return userDao.findFreeStudent();
+            }
+        });
+    }
 }

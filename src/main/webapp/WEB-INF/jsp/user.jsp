@@ -35,8 +35,8 @@
         <td>${user.role}</td>
     </tr>
     <tr>
-        <td><b>course</b></td>
-        <td>${user.course}</td>
+        <td><b>yearOfStudy</b></td>
+        <td>${user.yearOfStudy}</td>
     </tr>
 </table>
 

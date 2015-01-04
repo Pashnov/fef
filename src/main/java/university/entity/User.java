@@ -1,6 +1,6 @@
 package university.entity;
 
-import university.constant.user.Course;
+import university.constant.user.YearOfStudy;
 import university.constant.user.UserRole;
 
 /**
@@ -14,8 +14,17 @@ public class User {
     private String email;
     private String password;
     private UserRole role;
-    private boolean isActive;
-    private Course course;
+    private boolean isActive = true;
+    private YearOfStudy yearOfStudy;
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName, UserRole role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+    }
 
     public long getId() {
         return id;
@@ -73,12 +82,12 @@ public class User {
         this.isActive = isActive;
     }
 
-    public Course getCourse() {
-        return course;
+    public YearOfStudy getYearOfStudy() {
+        return yearOfStudy;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setYearOfStudy(YearOfStudy yearOfStudy) {
+        this.yearOfStudy = yearOfStudy;
     }
 
     @Override
@@ -90,7 +99,7 @@ public class User {
 
         if (id != user.id) return false;
         if (isActive != user.isActive) return false;
-        if (course != user.course) return false;
+        if (yearOfStudy != user.yearOfStudy) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
@@ -109,7 +118,7 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (isActive ? 1 : 0);
-        result = 31 * result + (course != null ? course.hashCode() : 0);
+        result = 31 * result + (yearOfStudy != null ? yearOfStudy.hashCode() : 0);
         return result;
     }
 
@@ -123,7 +132,7 @@ public class User {
         sb.append(", password='").append(password).append('\'');
         sb.append(", role=").append(role);
         sb.append(", isActive=").append(isActive);
-        sb.append(", course=").append(course);
+        sb.append(", yearOfStudy=").append(yearOfStudy);
         sb.append('}');
         return sb.toString();
     }
