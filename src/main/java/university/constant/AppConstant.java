@@ -12,6 +12,7 @@ public interface AppConstant {
     String ORDER_SERVICE = "orderService";
     String MATERIAL_SERVICE = "materialService";
     String GROUP_SERVICE = "groupService";
+    String LECTION_SERVICE = "lectionService";
 
 
 }

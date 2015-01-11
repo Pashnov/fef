@@ -4,7 +4,7 @@ import university.dao.GroupDao;
 import university.dao.UserDao;
 import university.entity.Group;
 import university.service.GroupService;
-import university.transaction.ITransactionOperation;
+import university.transaction.TransactionOperation;
 import university.transaction.TransactionManager;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Group create(final Group group) {
-        return manager.doTransaction(new ITransactionOperation<Group>() {
+        return manager.doTransaction(new TransactionOperation<Group>() {
             @Override
             public Group execute() {
                 groupDao.create(group);
@@ -38,7 +38,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Group read(final long id) {
-        return manager.doTransaction(new ITransactionOperation<Group>() {
+        return manager.doTransaction(new TransactionOperation<Group>() {
             @Override
             public Group execute() {
                 Group group = groupDao.read(id);
@@ -50,7 +50,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> findAll(final boolean isActive) {
-        return manager.doTransaction(new ITransactionOperation<List<Group>>() {
+        return manager.doTransaction(new TransactionOperation<List<Group>>() {
             @Override
             public List<Group> execute() {
                 return groupDao.findAll(isActive);

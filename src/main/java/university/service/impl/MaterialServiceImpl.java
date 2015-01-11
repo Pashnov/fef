@@ -3,7 +3,7 @@ package university.service.impl;
 import university.dao.MaterialDao;
 import university.entity.Material;
 import university.service.MaterialService;
-import university.transaction.ITransactionOperation;
+import university.transaction.TransactionOperation;
 import university.transaction.TransactionManager;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public Material read(final long id) {
-        return manager.doTransaction(new ITransactionOperation<Material>() {
+        return manager.doTransaction(new TransactionOperation<Material>() {
             @Override
             public Material execute() {
                 return dao.read(id);
@@ -33,7 +33,7 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public List<Material> findAll() {
-        return manager.doTransaction(new ITransactionOperation<List<Material>>() {
+        return manager.doTransaction(new TransactionOperation<List<Material>>() {
             @Override
             public List<Material> execute() {
                 return dao.findAll();
@@ -43,7 +43,7 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public Material create(final Material material) {
-        return manager.doTransaction(new ITransactionOperation<Material>() {
+        return manager.doTransaction(new TransactionOperation<Material>() {
             @Override
             public Material execute() {
                 return dao.create(material);
@@ -53,7 +53,7 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public byte[] getPhoto(final long id) {
-        return manager.doTransaction(new ITransactionOperation<byte[]>() {
+        return manager.doTransaction(new TransactionOperation<byte[]>() {
             @Override
             public byte[] execute() {
                 return dao.getPhoto(id);
@@ -63,7 +63,7 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public byte[] getFile(final long id) {
-        return manager.doTransaction(new ITransactionOperation<byte[]>() {
+        return manager.doTransaction(new TransactionOperation<byte[]>() {
             @Override
             public byte[] execute() {
                 return dao.getFile(id);

@@ -3,7 +3,7 @@ package university.service.impl;
 import university.dao.UserDao;
 import university.entity.User;
 import university.service.UserService;
-import university.transaction.ITransactionOperation;
+import university.transaction.TransactionOperation;
 import university.transaction.TransactionManager;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User read(final long id) {
-        return manager.doTransaction(new ITransactionOperation<User>() {
+        return manager.doTransaction(new TransactionOperation<User>() {
             @Override
             public User execute() {
                 return userDao.read(id);
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User read(final String firstName, final String lastName) {
-        return manager.doTransaction(new ITransactionOperation<User>() {
+        return manager.doTransaction(new TransactionOperation<User>() {
             @Override
             public User execute() {
                 return userDao.read(firstName, lastName);
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return manager.doTransaction(new ITransactionOperation<List<User>>() {
+        return manager.doTransaction(new TransactionOperation<List<User>>() {
             @Override
             public List<User> execute() {
                 return userDao.findAll();
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(final User user) {
-        return manager.doTransaction(new ITransactionOperation<User>() {
+        return manager.doTransaction(new TransactionOperation<User>() {
             @Override
             public User execute() {
                 return userDao.create(user);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findFreeStudent() {
-        return manager.doTransaction(new ITransactionOperation<List<User>>() {
+        return manager.doTransaction(new TransactionOperation<List<User>>() {
             @Override
             public List<User> execute() {
                 return userDao.findFreeStudent();

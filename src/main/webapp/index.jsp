@@ -14,6 +14,8 @@
 <a href="users">users</a><br>
 <a href="createUser">create User</a><br>
 <a href="createGroup">create Group</a><br>
+<a href="lection?lectionId=1">lection</a><br>
+<a href="lectionView?lectionId=1">lection view</a><br>
 
 
 

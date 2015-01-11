@@ -20,7 +20,7 @@ public class TransactionManager {
         LOG.info("TransactionManager init");
     }
 
-    public <T> T doTransaction(ITransactionOperation<T> op){
+    public <T> T doTransaction(TransactionOperation<T> op){
         LOG.trace("doTransaction()");
         T res = null;
         Connection conn = null;
