@@ -30,7 +30,10 @@ public class LectionViewServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long id = Long.valueOf(request.getParameter("lectionId"));
+        LOG.debug("id = " + id);
         String text = lectionService.readText(id);
+        text = text.replace("xmlns=\"http://www.w3.org/1998/Math/MathML\"", "");
+//        LOG.debug("text = " + text);
         String jsonText = createJson(text);
         response.setContentType("json");
         PrintWriter out = response.getWriter();

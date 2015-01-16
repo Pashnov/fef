@@ -31,6 +31,7 @@ public class LectionServlet extends HttpServlet {
         LOG.debug("doPost");
         long id = Long.valueOf(request.getParameter("lectionId"));
         String text = request.getParameter("text");
+        text = text.replace("\"", "'");
         lectionService.update(id,text);
         response.setContentType("json");
         response.getWriter().print("{ \"param\":\"true\"");

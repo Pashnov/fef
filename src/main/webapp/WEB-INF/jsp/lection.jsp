@@ -9,8 +9,15 @@
 
     <script src="js/jquery-2.1.3.js"></script>
     <script src="js/jquery-ui.js"></script>
+    <script src="js/wiris_editor.js"></script>
 
     <script>
+        var editor;
+        window.onload = function () {
+            editor = com.wiris.jsEditor.JsEditor.newInstance({'language': 'ru'});
+            editor.insertInto(document.getElementById('editorContainer'));
+        }
+
         $(function(){
             console.log("ready");
             setInterval('updateText()', 400);
@@ -18,8 +25,9 @@
 
         function updateText(){
             var id = $("#lectionId").val();
-            var text = $("textarea[name='text']").val();
+            var text = editor.getMathML();
             console.log("id = " + id + ", text = " + text);
+            console.log("=================" + editor.getMathML() + "=============");
             $.ajax({
                 type: "POST",
                 url: "lection",
@@ -49,6 +57,8 @@
 <p><h1>Text</h1></p>
 <textarea name="text" rows="15" cols="100">${lection.text}</textarea>
 <br>
+
+<div id="editorContainer" style="width : 900px "></div>
 
 </body>
 </html>
