@@ -1,71 +1,30 @@
-
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<header>
-    <div id="top-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="home-account btn-group inline-block ">
-                        <a href=<c:url value="/"/>>Home</a>
-                        <c:if test='${user == null}'>
-                            <a href="login.do">Login</a>
-                            <a href="createAccount.do">Create account</a>
-                        </c:if>
-                        <c:if test='${user != null}'>
-                            <a href="account.net">My account</a>
-                            <a href="logout.net">Logout</a>
-                        </c:if>
-                        <m:language/>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="cart-info">
-                        <m:cart/>
-                    </div>
-                </div>
-            </div>
+<nav class="navbar navbar-inverse navbar-fixed-top" id="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Bootstrap theme</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <m:linksHeader/>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Nav header</li>
+                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">One more separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
-    <div id="main-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="logo">
-                        <a href=""><img src="images/logo.png"></a>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="main-menu">
-                        <ul>
-                            <li><a href=<c:url value="/"/> > fmt = <fmt:message key="header.home"/></a></li>
-                            <li><a href="about-us.html">About</a></li>
-                            <li><a href="products">Products</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <c:if test="${user != null}">
-                    <div class="col-md-3">
-                        <div class="text-row">
-                            <p><b>Login:</b> ${user.login}</p>
-                        </div>
-                        <div class="text-row">
-                            <p><b>Email:</b> ${user.email}</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div>
-                            <div id="info_user">
-                                <img src='photo/${user.id}.jpg' alt=""/>
-                            </div>
-                        </div>
-                    </div>
-                </c:if>
-            </div>
-
-
-        </div>
-
-
-    </div>
-</header>
+</nav>

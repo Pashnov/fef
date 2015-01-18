@@ -3,49 +3,26 @@
 
 <html>
 <head>
-    <title>Lection</title>
-
-    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
-
-    <script src="js/jquery-2.1.3.js"></script>
-    <script src="js/jquery-ui.js"></script>
+    <title>Lection view</title>
+    <%@ include file="/WEB-INF/jspf/lib/styleScriptLinks.jspf" %>
     <script src="js/wiris_editor.js"></script>
-    <!--<script src="http://www.wiris.net/demo/editor/editor"></script>-->
 
     <script>
 
         var editor;
         window.onload = function () {
-				var currentlanguage = 'ru';
+            editor = com.wiris.jsEditor.JsEditor.newInstance({'language': 'ru', 'toolbarHidden':'true'});
 
-				if (com.wiris.jsEditor.defaultBasePath) {
-					editor = com.wiris.jsEditor.JsEditor.newInstance({
-						'language': 'ru'
-					});
-				}
-				else {
-					editor = new com.wiris.jsEditor.JsEditor('../resources');
-				}
+            editor.insertInto(document.getElementById('editorContainer'));
+        }
 
-				editor.insertInto(document.getElementById('editorContainer'));
-		}
-
-        //editor;
-
-        //window.onload = function () {
-          //editor = com.wiris.jsEditor.JsEditor.newInstance({'language': 'ru'});
-           //editor.insertInto(document.getElementById('editorContainer'));
-        //}
-
-        $(function(){
+        $(function () {
             console.log("ready");
             setInterval('updateText()', 3000);
         });
 
-        function updateText(){
+        function updateText() {
             var id = $("#lectionId").val();
-            console.log("id = " + id);
-            //alert("id = " + id);
             $.ajax({
                 type: "POST",
                 url: "lectionView",
@@ -53,14 +30,7 @@
                 data: {lectionId: id},
                 success: function (data) {
                     var text = data.text;
-                    console.log("text =============== = " + text);
-                    //var textElem = $("textarea[name='text']");
-                    //$(textElem).empty();
-                    //$(textElem).text(data.text);
-                    //alert("text =============== " + text);
                     editor.setMathML(text);
-                    //editor.setMathML('<math xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi><mi>f</mi><mi>f</mi><mi>f</mi><mi>f</mi></math>');
-                    //editor.setMathML("<math><mfrac><mn>1</mn><mi>x</mi></mfrac></math>");
                 }
             });
         }
@@ -68,16 +38,59 @@
     </script>
 
 </head>
-<body>
+<body role="document" type-page="lection">
 <input type="hidden" name="lectionId" id="lectionId" value="${lection.id}">
-<h1>Lection ${lection.name}</h1>
-<br/>
-<br>
-<p><h1>Text</h1></p>
-<textarea name="text" rows="15" cols="100">${lection.text}</textarea>
-<br>
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
-<div id="editorContainer" style="width : 900px "></div>
+<div class="container theme-showcase" role="main">
+    <div class="jumbotron">
+
+        <h2>Lection ${lection.name}</h2>
+        <br>
+
+        <div class="row">
+            <div class="col-xs-12" style="height: 450px;">
+                <div id="editorContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <h2>Comments</h2>
+    </div>
+    <div class="row">
+        <form method="post" action="createLectionComment">
+            <input type="hidden" name="lectionId" value="${lection.id}">
+
+            <div class="col-sm-2 form-group">
+                <input class="form-control btn btn-success" type="submit" value="send">
+            </div>
+            <div class="col-sm-10 form-group">
+                <input class="form-control" type="text" name="text" placeholder="text for comment">
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <div class="row">
+
+        <c:forEach items="${listComment}" var="comment">
+            <div class="col-sm-2 form-group">
+                <input type="text" class="btn btn-info form-control" value="${comment.user.firstName}&nbsp;${comment.user.lastName}">
+            </div>
+            <div class="col-sm-8 form-group">
+                <span type="text" class="form-control btn btn-default active">${comment.text}</span>
+            </div>
+            <div class="col-sm-2 form-group">
+                <input type="text" class="btn btn-default form-control" value="${comment.creationDate}">
+            </div>
+        </c:forEach>
+
+    </div>
+</div>
+
+
+<script src="js/active-tab.js"></script>
 
 </body>
 </html>

@@ -5,22 +5,10 @@ package university.web.listener;
  */
 
 import org.apache.log4j.Logger;
-import university.dao.GroupDao;
-import university.dao.LectionDao;
-import university.dao.MaterialDao;
-import university.dao.UserDao;
-import university.dao.impl.GroupDaoImpl;
-import university.dao.impl.LectionDaoImpl;
-import university.dao.impl.MaterialDaoImpl;
-import university.dao.impl.UserDaoImpl;
-import university.service.GroupService;
-import university.service.LectionService;
-import university.service.MaterialService;
-import university.service.UserService;
-import university.service.impl.GroupServiceImpl;
-import university.service.impl.LectionServiceImpl;
-import university.service.impl.MaterialServiceImpl;
-import university.service.impl.UserServiceImpl;
+import university.dao.*;
+import university.dao.impl.*;
+import university.service.*;
+import university.service.impl.*;
 import university.transaction.TransactionManager;
 
 import javax.naming.InitialContext;
@@ -63,6 +51,10 @@ public class AppServletContextListener implements ServletContextListener {
         LectionDao lectionDao = new LectionDaoImpl();
         LectionService lectionService = new LectionServiceImpl(manager, lectionDao);
         servletContextEvent.getServletContext().setAttribute(LECTION_SERVICE, lectionService);
+
+        LectionCommentDao lectionCommentDao = new LectionCommentDaoImpl();
+        LectionCommentService lectionCommentService = new LectionCommentServiceImpl(manager, lectionCommentDao);
+        servletContextEvent.getServletContext().setAttribute(LECTION_COMMENT_SERVICE, lectionCommentService);
 
         LOG.info("finish init AppServletContextListener");
     }

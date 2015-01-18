@@ -5,10 +5,9 @@
 <head>
     <title>create group</title>
 
+    <%@ include file="/WEB-INF/jspf/lib/styleScriptLinks.jspf" %>
+    <link rel="stylesheet" type="text/css" href="css/group/create.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-
-    <script src="js/jquery-2.1.3.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="js/group/fieldChooser.min.js"></script>
 
@@ -21,8 +20,11 @@
     </script>
 
 </head>
-<body>
+<body role="document" type-page="group">
+<%@ include file="/WEB-INF/jspf/header.jspf" %>
 
+<div class="container theme-showcase" role="main">
+    <div class="jumbotron">
 <h1>create group</h1>
 <br/>
 <br>
@@ -48,6 +50,10 @@ name group&nbsp;<input type="text" name="name" form="createUser">
         <input type="submit" value="save">
     </form>
 </div>
+    </div>
+</div>
+
+<script src="js/active-tab.js"></script>
 
 </body>
 </html>

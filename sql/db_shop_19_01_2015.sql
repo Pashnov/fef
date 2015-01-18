@@ -55,18 +55,46 @@ CREATE TABLE IF NOT EXISTS `lection` (
   `name` varchar(50) NOT NULL,
   `idLecture` bigint(20) unsigned NOT NULL,
   `idSubject` bigint(20) unsigned NOT NULL,
-  `text` varchar(2000) NOT NULL,
+  `text` mediumtext NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_lection_user` (`idLecture`),
-  CONSTRAINT `FK_lection_user` FOREIGN KEY (`idLecture`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_lection_user` FOREIGN KEY (`idLecture`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы fef.lection: ~0 rows (приблизительно)
 DELETE FROM `lection`;
 /*!40000 ALTER TABLE `lection` DISABLE KEYS */;
 INSERT INTO `lection` (`id`, `name`, `idLecture`, `idSubject`, `text`) VALUES
-	(1, 'test', 1, 1, 'begin text1 2 3 4 class public static final. add formula)))))dfdgdfgsdfgdfsgzdfgdfgdfgergfdsgsdfhshsssssssssssssssssssssssssssssssssssssssssss\nsdfgsdfsdfl;ksajdfkljsda;flkj??????????\n??????????????????????\n????????????????????????\n????????????????????\n????????? ???????????');
+	(1, 'test', 1, 1, '<math xmlns=\'http://www.w3.org/1998/Math/MathML\'><mfrac><mrow><mn>1</mn><mo>-</mo><mn>2</mn></mrow><msqrt><mo>-</mo><mn>1</mn></msqrt></mfrac><mo>=</mo></math>');
 /*!40000 ALTER TABLE `lection` ENABLE KEYS */;
+
+
+-- Дамп структуры для таблица fef.lection_comment
+CREATE TABLE IF NOT EXISTS `lection_comment` (
+  `lection_comment_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `lection_id` bigint(20) unsigned NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `text` varchar(512) NOT NULL,
+  PRIMARY KEY (`lection_comment_id`),
+  KEY `FK_lection_comment_lection` (`lection_id`),
+  KEY `FK_lection_comment_user` (`user_id`),
+  CONSTRAINT `FK_lection_comment_lection` FOREIGN KEY (`lection_id`) REFERENCES `lection` (`id`),
+  CONSTRAINT `FK_lection_comment_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы fef.lection_comment: ~0 rows (приблизительно)
+DELETE FROM `lection_comment`;
+/*!40000 ALTER TABLE `lection_comment` DISABLE KEYS */;
+INSERT INTO `lection_comment` (`lection_comment_id`, `lection_id`, `user_id`, `creation_date`, `text`) VALUES
+	(1, 1, 4, '2015-01-18 16:58:46', 'add first comment'),
+	(2, 1, 4, '2015-01-18 17:02:09', 'two test comment'),
+	(3, 1, 4, '2015-01-18 17:43:21', 'ass 3'),
+	(4, 1, 4, '2015-01-18 17:43:30', 'add 4'),
+	(5, 1, 4, '2015-01-18 17:47:18', 'add 5'),
+	(6, 1, 4, '2015-01-18 17:47:27', 'add 6'),
+	(7, 1, 4, '2015-01-18 18:08:28', '<math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mrow><mn>1</mn><mo>-</mo><mn>2</mn></mrow><msqrt><mo>-</mo><mn>1</mn></msqrt></mfrac><mo>=</mo></math>');
+/*!40000 ALTER TABLE `lection_comment` ENABLE KEYS */;
 
 
 -- Дамп структуры для таблица fef.material
@@ -100,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `subject` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы fef.subject: ~0 rows (приблизительно)
+-- Дамп данных таблицы fef.subject: ~2 rows (приблизительно)
 DELETE FROM `subject`;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
 INSERT INTO `subject` (`id`, `name`) VALUES
@@ -112,7 +140,7 @@ INSERT INTO `subject` (`id`, `name`) VALUES
 
 -- Дамп структуры для таблица fef.user
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `firstName` varchar(50) NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `email` varchar(60) DEFAULT NULL,
@@ -120,13 +148,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role` enum('STUDENT','LECTURER','ADMIN') NOT NULL,
   `isActive` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `yearOfStudy` enum('I','II','III','IV','V','VI') DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы fef.user: ~5 rows (приблизительно)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`, `role`, `isActive`, `yearOfStudy`) VALUES
+INSERT INTO `user` (`user_id`, `firstName`, `lastName`, `email`, `password`, `role`, `isActive`, `yearOfStudy`) VALUES
 	(1, 'Andrii', 'Pashnov', 'pashnyov@gmail.com', 'zzzzzz', 'STUDENT', 1, 'VI'),
 	(2, 'first1', 'last1', 'email1', 'zzzzzz', 'LECTURER', 1, NULL),
 	(3, 'sfirst1', 'slast1', 'semail1', 'zzzzzz', 'STUDENT', 1, 'I'),

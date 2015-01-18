@@ -35,15 +35,29 @@ public class UserDaoImpl implements UserDao {
     public static final String SQL_FIND_ALL_FREE_STUDENT = "SELECT * FROM user u WHERE u.id NOT IN " +
             "(SELECT gm.idUser FROM group_member gm) AND u.role = 'STUDENT' ";
 
-    //**************constants***************
+    //**************columns***************
 
-    public static final String ID = "id";
+    public static final String ID = "user_id";
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
     public static final String ROLE = "role";
     public static final String IS_ACTIVE = "isActive";
     public static final String YEAR_OF_STUDY = "yearOfStudy";
+
+    public static User extractUserFromResultSet(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getLong(ID));
+        user.setFirstName(rs.getString(FIRST_NAME));
+        user.setLastName(rs.getString(LAST_NAME));
+        user.setEmail(rs.getString(EMAIL));
+        user.setPassword(rs.getString(PASSWORD));
+        user.setRole(UserRole.valueOf(rs.getString(ROLE)));
+        user.setActive(rs.getBoolean(IS_ACTIVE));
+        user.setYearOfStudy(YearOfStudy.getCourse(rs.getString(YEAR_OF_STUDY)));
+        return user;
+    }
 
     @Override
     public User read(long id) {
@@ -156,18 +170,6 @@ public class UserDaoImpl implements UserDao {
             throw new DaoStatementException(e);
         }
         return list;
-    }
-
-    private User extractUserFromResultSet(ResultSet rs) throws SQLException {
-        User user = new User();
-        user.setId(rs.getLong(ID));
-        user.setFirstName(rs.getString(FIRST_NAME));
-        user.setLastName(rs.getString(LAST_NAME));
-        user.setEmail(rs.getString(EMAIL));
-        user.setRole(UserRole.valueOf(rs.getString(ROLE)));
-        user.setActive(rs.getBoolean(IS_ACTIVE));
-        user.setYearOfStudy(YearOfStudy.getCourse(rs.getString(YEAR_OF_STUDY)));
-        return user;
     }
 
     private void initPrepareStatement(PreparedStatement ps, User user) throws SQLException {

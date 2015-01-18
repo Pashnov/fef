@@ -1,5 +1,5 @@
-<%@ include file="/WEB-INF/jspf/lib/taglib.jspf" %>
 <%@ include file="/WEB-INF/jspf/lib/encoding.jspf" %>
+<%@ include file="/WEB-INF/jspf/lib/taglib.jspf" %>
 
 <html xmlns:c="">
 <head>

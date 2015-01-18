@@ -19,6 +19,18 @@
         <servlet-name>LectionViewServlet</servlet-name>
         <servlet-class>university.web.servlet.LectionViewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>university.web.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyInfoServlet</servlet-name>
+        <servlet-class>university.web.servlet.MyInfoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateLectionCommentServlet</servlet-name>
+        <servlet-class>university.web.servlet.CreateLectionCommentServlet</servlet-class>
+    </servlet>
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

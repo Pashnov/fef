@@ -108,7 +108,7 @@ public class LectionDaoImpl implements LectionDao {
 
     @Override
     public void update(long id, String text) {
-        LOG.debug("update, id = " + id + ", text = " + text);
+        LOG.debug("updateText, id = " + id + ", text = " + text);
         Connection connection = JdbcConnectionHolder.get();
         try(PreparedStatement ps = connection.prepareStatement(SQL_UPDATE_TEXT_BY_ID)) {
             ps.setString(1, text);
