@@ -84,7 +84,7 @@ public class GroupDaoImpl implements GroupDao {
         return null;
     }
 
-    private Group extractGroupFromResultSet(ResultSet resultSet) throws SQLException {
+    public static Group extractGroupFromResultSet(ResultSet resultSet) throws SQLException {
         Group group = new Group();
         group.setId(resultSet.getLong("id"));
         group.setName(resultSet.getString("name"));

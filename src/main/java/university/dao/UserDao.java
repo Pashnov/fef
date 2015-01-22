@@ -15,4 +15,6 @@ public interface UserDao {
     List<User> findUsersByIdGroup(long idGroup);
     List<User> findFreeStudent();
     User create(User user);
+    void update(User user);
+
 }

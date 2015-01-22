@@ -19,5 +19,5 @@
     </c:if>
 </li>
 <li id="lection">
-    <a href="#">Lection</a>
+    <a href="lections">Lection</a>
 </li>

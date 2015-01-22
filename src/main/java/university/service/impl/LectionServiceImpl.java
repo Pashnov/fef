@@ -6,6 +6,8 @@ import university.service.LectionService;
 import university.transaction.TransactionOperation;
 import university.transaction.TransactionManager;
 
+import java.util.List;
+
 public class LectionServiceImpl implements LectionService {
 
     private TransactionManager manager;
@@ -64,6 +66,16 @@ public class LectionServiceImpl implements LectionService {
             public Object execute() {
                 lectionDao.update(id, text);
                 return null;
+            }
+        });
+    }
+
+    @Override
+    public List<Lection> findAll() {
+        return manager.doTransaction(new TransactionOperation<List<Lection>>() {
+            @Override
+            public List<Lection> execute() {
+                return lectionDao.findAll();
             }
         });
     }

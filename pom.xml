@@ -165,7 +165,7 @@
                 <version>2.2</version>
                 <configuration>
                     <url>http://localhost:8080/manager/text</url>
-                    <port>8080</port>
+                    <port>80</port>
                     <server>TomcatServer</server>
                     <username>admin</username>
                     <password>admin</password>

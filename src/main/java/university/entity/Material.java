@@ -1,8 +1,5 @@
 package university.entity;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
 /**
  * Created by Andrii_Pashnov on 23.12.2014 18:43.
  */
@@ -95,11 +92,4 @@ public class Material {
         return sb.toString();
     }
 
-    public byte[] get1File() {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        out.toByteArray();
-        ByteArrayInputStream in = new ByteArrayInputStream(file);
-        in.read();
-        return file;
-    }
 }

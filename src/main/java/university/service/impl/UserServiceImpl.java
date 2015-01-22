@@ -62,6 +62,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void update(final User user) {
+        manager.doTransaction(new TransactionOperation<User>() {
+            @Override
+            public User execute() {
+                userDao.update(user);
+                return null;
+            }
+        });
+    }
+
+    @Override
     public List<User> findFreeStudent() {
         return manager.doTransaction(new TransactionOperation<List<User>>() {
             @Override

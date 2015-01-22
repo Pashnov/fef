@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
 
     private static final Logger LOG = Logger.getLogger(UserDaoImpl.class);
 
-    public static final String SQL_READ_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
+    public static final String SQL_READ_USER_BY_ID = "SELECT * FROM user WHERE user_id = ?";
 
     public static final String SQL_READ_USER_BY_FIRST_AND_LAST_NAME = "SELECT * FROM user " +
             "WHERE firstName = ? AND lastName = ? ";
@@ -27,13 +27,16 @@ public class UserDaoImpl implements UserDao {
     public static final String SQL_READ_ALL_USER = "SELECT * FROM user";
 
     public static final String SQL_READ_ALL_USER_BY_ID_GROUP = "SELECT * FROM user u " +
-            "INNER JOIN group_member gm ON gm.idUser = u.id WHERE gm.idGroup = ?";
+            "INNER JOIN group_member gm ON gm.idUser = u.user_id WHERE gm.idGroup = ?";
 
     public static final String SQL_CREATE_USER = "INSERT INTO user (firstName, lastName, " +
             "email, password, role, yearOfStudy) VALUES (?, ?, ?, ?, ?, ?)";
 
-    public static final String SQL_FIND_ALL_FREE_STUDENT = "SELECT * FROM user u WHERE u.id NOT IN " +
-            "(SELECT gm.idUser FROM group_member gm) AND u.role = 'STUDENT' ";
+    public static final String SQL_UPDATE_USER = "UPDATE user SET email = ?, password = ?, yearOfStudy = ? WHERE user_id = ?";
+
+    public static final String SQL_FIND_ALL_FREE_STUDENT = "SELECT * FROM user u WHERE u.user_id NOT IN " +
+    "(SELECT gm.idUser FROM group_member gm) AND u.role = 'STUDENT' ";
+
 
     //**************columns***************
 
@@ -152,6 +155,22 @@ public class UserDaoImpl implements UserDao {
             throw new DaoStatementException(e);
         }
         return null;
+    }
+
+    @Override
+    public void update(User user) {
+        LOG.debug("update, user = " + user);
+        Connection connection = JdbcConnectionHolder.get();
+        try(PreparedStatement ps = connection.prepareStatement(SQL_UPDATE_USER)) {
+            ps.setString(1, user.getEmail());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getYearOfStudy().name());
+            ps.setLong(4, user.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            LOG.warn(e);
+            throw new DaoStatementException(e);
+        }
     }
 
     @Override

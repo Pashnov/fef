@@ -4,15 +4,21 @@ import org.apache.log4j.Logger;
 import university.dao.LectionDao;
 import university.dao.exception.DaoStatementException;
 import university.entity.Lection;
+import university.entity.Subject;
 import university.transaction.JdbcConnectionHolder;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LectionDaoImpl implements LectionDao {
 
     private static final Logger LOG = Logger.getLogger(LectionDaoImpl.class);
 
-    public static final String SQL_READ_BY_ID = "SELECT * FROM lection WHERE id = ?";
+    public static final String SQL_READ_BY_ID = "SELECT * FROM lection l " +
+            "INNER JOIN subject s ON l.idSubject = s.subject_id " +
+            "INNER JOIN user u ON l.idLecture = u.user_id " +
+            "WHERE l.id = ?";
 
     public static final String SQL_CREATE_LECTION = "INSERT INTO lection (name, idLecture, idSubject) " +
             "VALUES (?, ?, ?)";
@@ -22,6 +28,23 @@ public class LectionDaoImpl implements LectionDao {
     public static final String SQL_UPDATE_TEXT_BY_ID = "UPDATE lection SET text = ? WHERE id = ?";
 
     public static final String SQL_READ_TEXT_BY_ID = "SELECT text FROM lection WHERE id = ?";
+
+    public static final String SQL_FIND_ALL = "SELECT * FROM lection l " +
+            "INNER JOIN subject s ON l.idSubject = s.subject_id  " +
+            "INNER JOIN user u ON l.idLecture = u.user_id ORDER BY l.id DESC";
+
+    public static Lection extractLection(ResultSet rs) throws SQLException {
+        Lection lection = null;
+        if(rs.getLong("id") != 0){
+            lection = new Lection();
+            lection.setId(rs.getLong("id"));
+            lection.setName(rs.getString("name"));
+            lection.setLecture(UserDaoImpl.extractUserFromResultSet(rs));
+            lection.setSubject(new Subject(rs.getLong("subject_id"), rs.getString("subject_name")));
+            lection.setText(rs.getString("text"));
+        }
+        return lection;
+    }
 
     @Override
     public Lection read(long id) {
@@ -37,18 +60,6 @@ public class LectionDaoImpl implements LectionDao {
         } catch (SQLException e) {
             LOG.warn(e);
             throw new DaoStatementException(e);
-        }
-        return lection;
-    }
-
-    private Lection extractLection(ResultSet rs) throws SQLException {
-        Lection lection = null;
-        if(rs.getLong("id") != 0){
-            lection = new Lection();
-            lection.setId(rs.getLong("id"));
-            lection.setName(rs.getString("name"));
-            lection.setText(rs.getString("text"));
-            //todo: add public extract
         }
         return lection;
     }
@@ -118,5 +129,25 @@ public class LectionDaoImpl implements LectionDao {
             LOG.warn(e);
             throw new DaoStatementException(e);
         }
+    }
+
+    @Override
+    public List<Lection> findAll() {
+        LOG.debug("findAll");
+        List<Lection> list = new ArrayList<>();
+        Connection connection = JdbcConnectionHolder.get();
+        try(Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery(SQL_FIND_ALL);
+            while (rs.next()){
+                Lection lection = extractLection(rs);
+                if(lection != null){
+                    list.add(lection);
+                }
+            }
+        } catch (SQLException e) {
+            LOG.warn(e);
+            throw new DaoStatementException(e);
+        }
+        return list;
     }
 }
