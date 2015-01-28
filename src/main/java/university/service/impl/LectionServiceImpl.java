@@ -43,7 +43,10 @@ public class LectionServiceImpl implements LectionService {
         return manager.doTransaction(new TransactionOperation<Lection>() {
             @Override
             public Lection execute() {
-                return lectionDao.create(lection);
+                String defaultValue = "<math xmlns='http://www.w3.org/1998/Math/MathML'/>";
+                Lection lection1 =  lectionDao.create(lection);
+                lectionDao.update(lection1.getId(), defaultValue);
+                return lection1;
             }
         });
     }

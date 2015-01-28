@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import static university.constant.AppConstant.LECTION_COMMENT_SERVICE;
@@ -36,13 +35,12 @@ public class LectionViewServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long id = Long.valueOf(request.getParameter("lectionId"));
-        LOG.debug("id = " + id);
-        String text = lectionService.readText(id);
-        String jsonText = createJson(text);
-        response.setContentType("json");
-        PrintWriter out = response.getWriter();
-        out.print(jsonText);
+//        long id = Long.valueOf(request.getParameter("lectionId"));
+//        String text = lectionService.readText(id);
+//        String jsonText = createJson(text);
+//        response.setContentType("json");
+//        PrintWriter out = response.getWriter();
+//        out.print(jsonText);
     }
 
     private String createJson(String text){

@@ -18,14 +18,24 @@ public class GroupDaoImpl implements GroupDao {
 
     private static final Logger LOG = Logger.getLogger(GroupDaoImpl.class);
 
-    public static final String SQL_CREATE_GROUP = "INSERT INTO group (name, isActive) VALUES (?, ?)";
+    public static final String SQL_CREATE_GROUP = "INSERT INTO `group` (name, isActive) VALUES (?, ?)";
 
     public static final String SQL_INSERT_MEMBERS_IN_GROUP = "INSERT INTO group_member (idGroup, idUser) VALUES (?, ?)";
 
     public static final String SQL_READ_GROUP_BY_ID = "SELECT * FROM `group` WHERE id = ?";
 
-    public static final String SQL_READ_ALL_GROUP_WITH_PARAM_IS_ACTIVE = "SELECT * FROM group WHERE isActive = ?";
+    public static final String SQL_READ_ALL_GROUP_WITH_PARAM_IS_ACTIVE = "SELECT * FROM `group` WHERE isActive = ?";
 
+    public static final String SQL_FIND_GROUP_BY_USER_ID = "SELECT gm.idGroup FROM group_member gm WHERE gm.idUser = ?";
+
+    public static Group extractGroupFromResultSet(ResultSet resultSet) throws SQLException {
+        Group group = new Group();
+        group.setId(resultSet.getLong("id"));
+        group.setName(resultSet.getString("name"));
+        group.setActive(resultSet.getBoolean("isActive"));
+        group.setCreationDate(resultSet.getDate("creationDate"));
+        return group;
+    }
 
     @Override
     public Group create(Group group) {
@@ -84,15 +94,6 @@ public class GroupDaoImpl implements GroupDao {
         return null;
     }
 
-    public static Group extractGroupFromResultSet(ResultSet resultSet) throws SQLException {
-        Group group = new Group();
-        group.setId(resultSet.getLong("id"));
-        group.setName(resultSet.getString("name"));
-        group.setActive(resultSet.getBoolean("isActive"));
-        group.setCreationDate(resultSet.getDate("creationDate"));
-        return group;
-    }
-
     @Override
     public List<Group> findAll(boolean isActive) {
         LOG.debug("findAll, isActive = " + isActive);
@@ -110,5 +111,22 @@ public class GroupDaoImpl implements GroupDao {
             throw new DaoStatementException(e);
         }
         return list;
+    }
+
+    @Override
+    public Long findGroupIdByUserId(Long userId) {
+        LOG.debug("findGroupByUserId, userId = " + userId);
+        Connection connection = JdbcConnectionHolder.get();
+        try(PreparedStatement ps = connection.prepareStatement(SQL_FIND_GROUP_BY_USER_ID)) {
+            int k = 1;
+            ps.setLong(k, userId);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getLong(1);
+            }
+        } catch (SQLException e) {
+            LOG.warn(e);
+        }
+        return null;
     }
 }

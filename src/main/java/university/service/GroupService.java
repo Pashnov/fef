@@ -12,5 +12,5 @@ public interface GroupService {
     Group create(Group group);
     Group read(long id);
     List<Group> findAll(boolean isActive);
-
+    Group getGroupByUserId(Long userId);
 }

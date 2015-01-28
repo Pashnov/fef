@@ -1,0 +1,21 @@
+<security>
+
+    <!--<constraint>-->
+        <!--<url-pattern>/*</url-pattern>-->
+        <!--<role>admin</role>-->
+        <!--<role>student</role>-->
+        <!--<role>lecturer</role>-->
+    <!--</constraint>-->
+
+    <constraint>
+        <url-pattern>/login</url-pattern>
+        <!-- redirect -->
+    </constraint>
+
+    <constraint>
+        <url-pattern>/users</url-pattern>
+        <role>admin</role>
+        <role>lecturer</role>
+    </constraint>
+
+</security>

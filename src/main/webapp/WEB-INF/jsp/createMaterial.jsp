@@ -10,12 +10,12 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <div class="container theme-showcase" role="main">
     <div class="jumbotron">
-<h1>Generated Entities</h1>
+<h1>Create material</h1>
 <br/>
 <br>
 
 <form action="createMaterial" method="post" enctype="multipart/form-data">
-    <table>
+    <table class="table">
         <tr>
             <td><label>name</label></td>
             <td><input type="text" name="name"></td>
@@ -34,7 +34,7 @@
         </tr>
     </table>
     <br>
-    <input type="submit" value="create">
+    <input class="btn btn-success" type="submit" value="create">
 </form>
 
     </div>

@@ -1,6 +1,6 @@
 package university.entity;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 /**

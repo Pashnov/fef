@@ -18,9 +18,9 @@ import static university.constant.AppConstant.LECTION_SERVICE;
  * Created by Andrii_Pashnov on 19.01.2015 19:05.
  */
 @WebServlet("/lections")
-public class AllLectionServlet extends HttpServlet {
+public class LectionsServlet extends HttpServlet {
 
-    private static final Logger LOG = Logger.getLogger(AllLectionServlet.class);
+    private static final Logger LOG = Logger.getLogger(LectionsServlet.class);
 
     private LectionService lectionService;
 
@@ -40,6 +40,5 @@ public class AllLectionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         LOG.debug("doPost");
-
     }
 }

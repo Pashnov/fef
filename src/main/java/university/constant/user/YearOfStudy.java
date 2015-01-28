@@ -15,7 +15,10 @@ public enum YearOfStudy {
         try{
             return valueOf(name);
         } catch (NullPointerException e){
-            LOG.debug("getName return default");
+            LOG.debug("getName return null");
+            return null;
+        } catch (IllegalArgumentException ex){
+            LOG.debug("not exists year of study = " + name);
             return I;
         }
     }

@@ -14,5 +14,5 @@ public interface GroupDao {
     void insertMembers(long idGroup, List<User> users);
     Group read(long id);
     List<Group> findAll(boolean isActive);
-
+    Long findGroupIdByUserId(Long userId);
 }

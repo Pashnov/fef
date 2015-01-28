@@ -38,6 +38,7 @@ public class CreateGroupServlet extends HttpServlet {
         List<User> students = getSimpleListUser(request);
         Group group = new Group(name, students);
         groupService.create(group);
+        response.sendRedirect("groups");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

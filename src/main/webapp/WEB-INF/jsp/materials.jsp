@@ -13,12 +13,12 @@
 <h1>Generated Entities</h1>
 <br/>
 <br>
-<table>
+<table class="table table-responsive">
     <tr>
-        <th>photo</th>
-        <th>name</th>
-        <th>description</th>
-        <th>file_name</th>
+        <th><b>photo        </b></th>
+        <th><b>name         </b></th>
+        <th><b>description  </b></th>
+        <th><b>file_name    </b></th>
     </tr>
 
     <c:forEach var="material" items="${materials}">

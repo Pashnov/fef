@@ -31,7 +31,7 @@ public class GroupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         LOG.debug("doGet");
-        Long idGroup = Long.valueOf(req.getParameter("id"));
+        Long idGroup = Long.valueOf(req.getParameter("groupId"));
         Group group = groupService.read(idGroup);
         req.setAttribute("group", group);
         req.getRequestDispatcher("/WEB-INF/jsp/group.jsp").forward(req, res);

@@ -57,4 +57,18 @@ public class GroupServiceImpl implements GroupService {
             }
         });
     }
+
+    @Override
+    public Group getGroupByUserId(final Long userId) {
+        return manager.doTransaction(new TransactionOperation<Group>() {
+            @Override
+            public Group execute() {
+                Long groupId = groupDao.findGroupIdByUserId(userId);
+                if(groupId == null){
+                    return null;
+                }
+                return groupDao.read(groupId);
+            }
+        });
+    }
 }

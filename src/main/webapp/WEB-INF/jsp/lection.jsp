@@ -14,6 +14,12 @@
             editor = com.wiris.jsEditor.JsEditor.newInstance({'language': 'ru'});
             editor.insertInto(document.getElementById('editorContainer'));
 
+
+
+        }
+
+        function setValueFromDB(){
+            alert("set");
             var id = $("#lectionId").val();
             console.log("id = " + id);
             $.ajax({
@@ -25,17 +31,22 @@
                     var text = data.text;
                     console.log("text =============== = " + text);
                     editor.setMathML(text);
+                },
+                error: function(){
+                    console.log("error");
+                    setValueFromDB();
                 }
             });
-
         }
 
         $(function () {
             console.log("ready");
-            setInterval('updateText()', 450);
+//            $.Deferred();
+            $.when(setValueFromDB()).done(setInterval('updateText()', 450));
         });
 
         function updateText() {
+            console.log("update");
             var id = $("#lectionId").val();
             var text = editor.getMathML();
             console.log("id = " + id + ", text = " + text);

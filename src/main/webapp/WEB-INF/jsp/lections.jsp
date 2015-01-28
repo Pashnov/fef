@@ -23,7 +23,7 @@
 
             <div class="col-xs-4" id="lection-subject">
                 <div id="lection-searcher-name">
-                    <h3>Select subjects</h3>
+                    <h3>Search by subjects</h3>
                     <input class="form-control" type="text" placeholder="search by name" oninput="functionSearch(this)" >
                 </div>
                 <h3>Select subjects</h3>

@@ -15,7 +15,7 @@
         <h1>Generated Entities</h1>
         <br/>
         <br>
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th>id</th>
